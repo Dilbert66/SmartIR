@@ -1,5 +1,5 @@
-import asyncio
 import json
+import asyncio
 import logging
 import os.path
 
@@ -10,7 +10,7 @@ from homeassistant.components.media_player import (
 from homeassistant.components.media_player.const import (
     SUPPORT_TURN_OFF, SUPPORT_TURN_ON, SUPPORT_PREVIOUS_TRACK,
     SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE, 
-    SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL,
+    SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL, SUPPORT_SELECT_SOUND_MODE,
     SUPPORT_PLAY, SUPPORT_PLAY_MEDIA, SUPPORT_PAUSE, SUPPORT_STOP)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
@@ -98,6 +98,8 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
         self._state = STATE_OFF
         self._sources_list = []
+        self._sound_modes_list = []
+        self._sound_mode = None
         self._source = None
         self._support_flags = 0
 
@@ -126,10 +128,16 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         if 'key_0' in self._commands and self._commands['key_0'] is not None:
             self._support_flags = self._support_flags | SUPPORT_PLAY_MEDIA 
         
+        if 'modes' in self._commands and self._commands['modes'] is not None:
+            self._support_flags = self._support_flags | SUPPORT_SELECT_SOUND_MODE 
+            
+            for key in self._commands['modes']:
+                self._sound_modes_list.append(key)
+        
         if 'play' in self._commands and self._commands['play'] is not None:
             self._support_flags = self._support_flags | SUPPORT_PLAY | SUPPORT_PAUSE | SUPPORT_STOP
        
-       if 'sources' in self._commands and self._commands['sources'] is not None:
+        if 'sources' in self._commands and self._commands['sources'] is not None:
             self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE
 
             for source, new_name in config.get(CONF_SOURCE_NAMES, {}).items():
@@ -199,6 +207,14 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
     @property
     def source_list(self):
         return self._sources_list
+
+    @property
+    def sound_mode_list(self):
+        return self._sound_modes_list
+
+    @property
+    def sound_mode(self):
+        return self._sound_mode
         
     @property
     def source(self):
@@ -227,6 +243,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         if self._power_sensor is None:
             self._state = STATE_OFF
             self._source = None
+            self._sound_mode = None
             await self.async_update_ha_state()
 
     async def async_turn_on(self):
@@ -266,6 +283,12 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         """Select channel from source."""
         self._source = source
         await self.send_command(self._commands['sources'][source])
+        await self.async_update_ha_state()
+
+    async def async_select_sound_mode(self, sound_mode):
+        """Select sound mode"""
+        self._sound_mode = sound_mode 
+        await self.send_command(self._commands['modes'][sound_mode])
         await self.async_update_ha_state()
 
     async def async_media_play(self):
@@ -324,5 +347,6 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
             if power_state.state == STATE_OFF:
                 self._state = STATE_OFF
                 self._source = None
+                self._sound_mode = None
             elif power_state.state == STATE_ON:
                 self._state = STATE_ON
