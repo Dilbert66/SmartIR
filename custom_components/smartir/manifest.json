@@ -1,14 +1,16 @@
 {
-  "domain": "smartir",
+  "domain": "smartir_custom",
   "name": "SmartIR",
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles==0.5.0"],
+
   "homeassistant": "0.115.0",
   "updater": {
-    "version": "1.13.2",
-    "releaseNotes": "-- Fixes Broadlink commands sequence #481",
+    "version": "1.13.2-c",
+    "releaseNotes": "-- Adds support for oscillate in fans",
+
     "files": [
       "__init__.py",
       "climate.py",

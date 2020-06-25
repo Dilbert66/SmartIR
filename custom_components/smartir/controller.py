@@ -3,7 +3,6 @@ from base64 import b64encode
 import binascii
 import requests
 import logging
-import json
 
 from homeassistant.const import ATTR_ENTITY_ID
 from . import Helper
@@ -14,7 +13,6 @@ BROADLINK_CONTROLLER = 'Broadlink'
 XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
-ESPHOME_CONTROLLER = 'ESPHome'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -25,7 +23,7 @@ BROADLINK_COMMANDS_ENCODING = [ENC_BASE64, ENC_HEX, ENC_PRONTO]
 XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
-ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+
 
 
 def get_controller(hass, controller, encoding, controller_data):
@@ -47,6 +45,7 @@ class AbstractController(ABC):
     """Representation of a controller."""
     def __init__(self, hass, controller, encoding, controller_data):
         self.check_encoding(encoding)
+
         self.hass = hass
         self._controller = controller
         self._encoding = encoding
@@ -146,6 +145,7 @@ class MQTTController(AbstractController):
             'payload': command
         }
 
+
         await self.hass.services.async_call(
             'mqtt', 'publish', service_data)
 
@@ -182,3 +182,4 @@ class ESPHomeController(AbstractController):
 
         await self.hass.services.async_call(
             'esphome', self._controller_data, service_data)
+
