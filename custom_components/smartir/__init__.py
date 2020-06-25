@@ -20,12 +20,9 @@ _LOGGER = logging.getLogger(__name__)
 
 
 DOMAIN = 'smartir_custom'
-
 VERSION = '1.13.2-c'
-
-
 MANIFEST_URL = (
-    "Dilbert66/SmartIR/{}/"
+    "https://raw.githubusercontent.com/"
     "Dilbert66/SmartIR/{}/"
     "custom_components/smartir/manifest.json")
 REMOTE_BASE_URL = (
