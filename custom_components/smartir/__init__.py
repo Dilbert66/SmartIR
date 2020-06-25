@@ -18,10 +18,12 @@ from homeassistant.helpers.typing import ConfigType
 
 _LOGGER = logging.getLogger(__name__)
 
-DOMAIN = 'smartir'
-VERSION = '1.13.2'
+
+DOMAIN = 'smartir_custom'
+VERSION = '1.13.2-c'
+
 MANIFEST_URL = (
-    "https://raw.githubusercontent.com/"
+    "smartHomeHub/SmartIR/{}/"
     "smartHomeHub/SmartIR/{}/"
     "custom_components/smartir/manifest.json")
 REMOTE_BASE_URL = (
@@ -45,24 +47,24 @@ CONFIG_SCHEMA = vol.Schema({
 async def async_setup(hass, config):
     """Set up the SmartIR component."""
     conf = config.get(DOMAIN)
-
+    return True
     if conf is None:
         return True
 
     check_updates = conf[CONF_CHECK_UPDATES]
     update_branch = conf[CONF_UPDATE_BRANCH]
 
-    async def _check_updates(service):
-        await _update(hass, update_branch)
+    #async def _check_updates(service):
+    #  await _update(hass, update_branch)
 
-    async def _update_component(service):
-        await _update(hass, update_branch, True)
+    #async def _update_component(service):
+    #    await _update(hass, update_branch, True)
 
-    hass.services.async_register(DOMAIN, 'check_updates', _check_updates)
-    hass.services.async_register(DOMAIN, 'update_component', _update_component)
+    #hass.services.async_register(DOMAIN, 'check_updates', _check_updates)
+    #hass.services.async_register(DOMAIN, 'update_component', _update_component)
 
-    if check_updates:
-        await _update(hass, update_branch, False, False)
+    #if check_updates:
+    #    await _update(hass, update_branch, False, False)
 
     return True
 
