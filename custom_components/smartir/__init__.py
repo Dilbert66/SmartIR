@@ -20,15 +20,17 @@ _LOGGER = logging.getLogger(__name__)
 
 
 DOMAIN = 'smartir_custom'
+
 VERSION = '1.13.2-c'
 
+
 MANIFEST_URL = (
-    "smartHomeHub/SmartIR/{}/"
-    "smartHomeHub/SmartIR/{}/"
+    "Dilbert66/SmartIR/{}/"
+    "Dilbert66/SmartIR/{}/"
     "custom_components/smartir/manifest.json")
 REMOTE_BASE_URL = (
     "https://raw.githubusercontent.com/"
-    "smartHomeHub/SmartIR/{}/"
+    "Dilbert66/SmartIR/{}/"
     "custom_components/smartir/")
 COMPONENT_ABS_DIR = os.path.dirname(
     os.path.abspath(__file__))
