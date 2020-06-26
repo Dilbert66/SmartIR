@@ -39,7 +39,7 @@ CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
         vol.Optional(CONF_CHECK_UPDATES, default=True): cv.boolean,
         vol.Optional(CONF_UPDATE_BRANCH, default='master'): vol.In(
-            ['master', 'rc'])
+            ['master', 'rc','mediaplayer_custom'])
     })
 }, extra=vol.ALLOW_EXTRA)
 
