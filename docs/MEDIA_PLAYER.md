@@ -175,6 +175,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1160](../codes/media_player/1160.json)|Z906|Broadlink
 [1161](../codes/media_player/1161.json)|Z-5500|Broadlink
+[1162](../codes/media_player/1162.json)|Z-5450|Broadlink
 
 #### TCL
 | Code | Supported Models | Controller |
@@ -195,3 +196,21 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1240](../codes/media_player/1240.json)|TXV-2420|Broadlink
+<<<<<<< HEAD
+=======
+
+#### Thomson
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1260](../codes/media_player/1260.json)|40FA3203|Broadlink
+
+#### Grunding
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1280](../codes/media_player/1280.json)|GSB-810|Broadlink
+
+#### OKI
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1300](../codes/media_player/1300.json)|V19B-LED4|Broadlink
+>>>>>>> c0608cb20c399580346d4bb6ccab81106c5c89a6

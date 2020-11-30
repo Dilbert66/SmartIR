@@ -1,6 +1,10 @@
 {
   "manufacturer":"Mitsubishi Electric",
   "supportedModels":[
+<<<<<<< HEAD
+=======
+    "MSZ-HJ25VA",
+>>>>>>> c0608cb20c399580346d4bb6ccab81106c5c89a6
     "MSZ-HJ35VA"
   ],
   "commandsEncoding":"Base64",
@@ -392,4 +396,8 @@
       }
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c0608cb20c399580346d4bb6ccab81106c5c89a6
